@@ -185,6 +185,12 @@ describe Mail::UnstructuredField do
       expect(@field.encoded).to eq result
     end
 
+    it "should fold ascii only words when no UTF-8 encoding" do
+      @field = Mail::UnstructuredField.new("X-Subject", "This is a header only ascii", "iso-2022-jp")
+      result = "X-Subject: This is a header only ascii\r\n"
+      expect(@field.encoded).to eq result
+    end
+
   end
 
   describe "encoding non QP safe chars" do
